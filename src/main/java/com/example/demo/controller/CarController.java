@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,6 +61,19 @@ public class CarController {
     @ResponseStatus(HttpStatus.CREATED)
     public Car createCar(@RequestBody @Valid Car car) {
         return carService.createCar(car);
+    }
+
+    @PostMapping("/list")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Car> createCarsList(@RequestBody @Valid List<Car> cars) {
+        return  carService.createCars(cars);
+    }
+
+    @PostMapping("/upload")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCars(@RequestParam("file") MultipartFile file) {
+//        carService.uploadCars(file);
+        carService.uploadCarsUsingJustStrings(file);
     }
 
     @PutMapping

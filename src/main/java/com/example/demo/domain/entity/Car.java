@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Car {
 
-    private int carId;
+    private Integer carId;
     @NotBlank
     private String color;
     @NotBlank
