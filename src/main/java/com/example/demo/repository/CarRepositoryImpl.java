@@ -69,7 +69,20 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     public Car update(Car car) {
-        return null;
+        String sql = "UPDATE car SET color = ? , speed = ? WHERE car_id = ?";
+//        Object[] params = new Object[]{
+//                car.getBirthDate(),
+//                car.getBrand(),
+//                car.getColor(),
+//                car.getName(),
+//                car.getSpeed()};
+        int numberOfRowsUpdated = jdbcTemplate.update(sql, car.getColor(), car.getSpeed(), car.getCarId());
+
+        if (numberOfRowsUpdated != 1){
+            throw new RuntimeException();
+        }
+
+        return findById(car.getCarId());
     }
 
     private RowMapper<Car> getCarRowMapper() {

@@ -16,6 +16,7 @@ public class DataConfig {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/jdbcdb");
         dataSource.setUsername("postgres");
         dataSource.setPassword("root");
+//        dataSource.setSchema("");
 
         return dataSource;
     }

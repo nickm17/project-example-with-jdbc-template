@@ -23,13 +23,12 @@ import static org.mockito.Mockito.when;
 
 public class CarRepositoryImplTest {
 
+    private Car car1 = null;
+    private Car car2 = null;
     @InjectMocks
     private CarRepositoryImpl carRepository;
     @Mock
     private JdbcTemplate jdbcTemplate;
-
-    private Car car1 = null;
-    private  Car car2 = null;
 
     @Before
     public void setup() {
@@ -38,8 +37,8 @@ public class CarRepositoryImplTest {
     }
 
     @Test
-    public void test_find_all(){
-       List<Car> cars = new ArrayList<>();
+    public void test_find_all() {
+        List<Car> cars = new ArrayList<>();
         cars.add(car1);
         cars.add(car2);
 
