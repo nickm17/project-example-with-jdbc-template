@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CarRepository {
 
+    List<Car> findByBrandAndColor(String brand, String color);
     void deleteById(int id);
 
     List<Car> findAll();

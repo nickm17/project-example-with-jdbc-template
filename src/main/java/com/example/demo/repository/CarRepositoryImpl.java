@@ -35,6 +35,16 @@ public class CarRepositoryImpl implements CarRepository {
     }
 
     @Override
+    public List<Car> findByBrandAndColor(String brand, String color) {
+        String sql = "select car_id, birth_date, brand, color, car_name, speed from car where brand = ? and color = ?";
+        RowMapper<Car> singerRowMapper = getCarRowMapper();
+        List<Car> carsByName = jdbcTemplate.query(sql, singerRowMapper, brand, color);
+        Collections.sort(carsByName, Comparator.comparing(Car::getCarId));
+
+        return carsByName;
+    }
+
+    @Override
     public List<Car> findByName(String name) {
         String sql = "select car_id, birth_date, brand, color, car_name, speed from car where car_name = ?";
         RowMapper<Car> singerRowMapper = getCarRowMapper();
@@ -87,13 +97,14 @@ public class CarRepositoryImpl implements CarRepository {
 
     private RowMapper<Car> getCarRowMapper() {
         return (rs, rowNum) -> {
-            Car car = new Car();
-            car.setCarId(rs.getInt("car_id"));
-            car.setBirthDate(rs.getDate("birth_date").toLocalDate());
-            car.setBrand(rs.getString("brand"));
-            car.setName(rs.getString("car_name"));
-            car.setColor(rs.getString("color"));
-            car.setSpeed(rs.getInt("speed"));
+            Car car = Car.builder()
+                         .carId(rs.getInt("car_id"))
+                         .birthDate(rs.getDate("birth_date").toLocalDate())
+                         .brand(rs.getString("brand"))
+                         .name(rs.getString("car_name"))
+                         .color(rs.getString("color"))
+                         .speed(rs.getInt("speed"))
+                         .build();
             return car;
         };
     }

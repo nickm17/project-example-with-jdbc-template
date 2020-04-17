@@ -36,7 +36,7 @@ public class CarController {
 
     private final CarService carService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public Car getCar(@PathVariable(name = "id") int carId) {
 
@@ -49,6 +49,13 @@ public class CarController {
     @ResponseStatus(HttpStatus.OK)
     public List<Car> getCars() {
         return carService.getCars();
+    }
+
+    @GetMapping("/bc")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> getCarsByBrandAndColor(@RequestParam("brand") String brand,
+                                            @RequestParam("color") String color) {
+        return carService.getCarsByBrandAndColor(brand, color);
     }
 
     @DeleteMapping("/{id}")

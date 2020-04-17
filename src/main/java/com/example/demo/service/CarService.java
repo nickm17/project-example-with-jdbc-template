@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.entity.Car;
+import com.example.demo.domain.entity.Customer;
 import com.example.demo.domain.model.CarPatch;
 import com.example.demo.repository.CarRepository;
+import com.example.demo.repository.CustomerRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,21 +18,30 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
 public class CarService {
 
     // @Autowired nu e necesar , injectarea se face in constructor
     private final CarRepository carRepository;
+    private final CustomerRepository customerRepository;
 
+    @Autowired
+    List<Car> carsFormSpringContext;
+
+    @Autowired
+    public CarService(CarRepository carRepository, CustomerRepository customerRepository) {
+        this.carRepository = carRepository;
+        this.customerRepository = customerRepository;
+    }
 
     public List<Car> createCars(List<Car> cars) {
         List<Car> returnedCars = new ArrayList<>();
+        System.out.println(carsFormSpringContext);
         cars.forEach(car -> returnedCars.add(createCar(car)));
         return returnedCars;
     }
@@ -43,11 +55,22 @@ public class CarService {
     }
 
     public Car getCarById(int id) {
-        return carRepository.findById(id);
+        System.out.println(carsFormSpringContext);
+        Optional<Customer> firstCar = customerRepository.findAll()
+                                                        .stream()
+                                                        .filter(customer -> customer.getCarId() == id)
+                                                        .findFirst();
+        Car byId = carRepository.findById(id);
+        byId.setCustomerOfTheCar(firstCar.get());
+        return byId;
     }
 
     public List<Car> getCars() {
         return carRepository.findAll();
+    }
+
+    public List<Car> getCarsByBrandAndColor(String brand, String color) {
+        return carRepository.findByBrandAndColor(brand, color);
     }
 
     public Car updateCar(Car car) {
@@ -99,7 +122,7 @@ public class CarService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(String row : rows) {
+        for (String row : rows) {
             String[] car = row.split(",");
 
             Car carObject = Car.builder()

@@ -1,5 +1,6 @@
 package com.example.demo.domain.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Max;
@@ -11,13 +12,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+//@XmlRootElement
 @Builder
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car {
+public class Car implements Serializable {
 
     private Integer carId;
     @NotBlank
@@ -31,4 +35,6 @@ public class Car {
     private int speed;
 
     private LocalDate birthDate;
+
+    private Customer customerOfTheCar;
 }
