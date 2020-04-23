@@ -36,7 +36,8 @@ public class CarController {
 
     private final CarService carService;
 
-    @GetMapping(value = "/{id}", produces = "application/xml")
+    @GetMapping(value = "/{id}")
+//    @GetMapping(value = "/{id}", produces = "application/xml")
     @ResponseStatus(HttpStatus.OK)
     public Car getCar(@PathVariable(name = "id") int carId) {
 

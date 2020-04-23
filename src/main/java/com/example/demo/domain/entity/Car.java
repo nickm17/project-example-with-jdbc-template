@@ -1,6 +1,10 @@
 package com.example.demo.domain.entity;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import java.time.LocalDate;
 
 import javax.validation.constraints.Max;
@@ -21,7 +25,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car implements Serializable {
+public class Car {
 
     private Integer carId;
     @NotBlank
@@ -34,6 +38,8 @@ public class Car implements Serializable {
     @Min(50)
     private int speed;
 
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthDate;
 
     private Customer customerOfTheCar;

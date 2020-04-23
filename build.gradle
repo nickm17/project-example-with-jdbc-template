@@ -35,10 +35,8 @@ dependencies {
 // https://mvnrepository.com/artifact/com.h2database/h2
 //    implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 
-    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.10.3'
+//    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+//    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.10.3'
 
 
     testCompile group: 'junit', name: 'junit', version: '4.12'

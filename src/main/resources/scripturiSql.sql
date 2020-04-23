@@ -24,3 +24,5 @@ create table customer
 
 alter table customer
     owner to postgres;
+
+alter sequence engine_engine_id_seq start 1 increment 1;
